@@ -1,0 +1,32 @@
+.simsRppContainer{height:40vh;min-height:500px;max-height:800px;width:100%;box-shadow:0 0 10px 0 rgb(0 0 0 / 20%);overflow:hidden;position:relative;transition:background .2s;}
+.simsRppContainer .simsRppContent{position:absolute;max-width:700px;height:100%;inset:0;margin:auto;pointer-events:none;opacity:0;}
+.simsRppContainer .simsRppContent.active,.simsRppContainer .simsRppContent.hidden{opacity:1;}
+.simsRppContainer .simsRppContent img{position:absolute;right:0;width:220px;height:200px;object-fit:contain;margin:auto;top:0;bottom:0;}
+.simsRppContainer .simsRppContent div{position:absolute;left:0;width:calc(100% - 250px);white-space:nowrap;height:fit-content;object-fit:contain;margin:auto;top:0;bottom:0;}
+.simsRppContainer .simsRppContent div h1,.simsRppContainer .simsRppContent div span,.simsRppContainer .simsRppContent div links{text-overflow:ellipsis;overflow:hidden;display:block;overflow:hidden;margin:0;}
+.simsRppContainer .simsRppContent div h1{margin-bottom:15px;}
+.simsRppContainer .simsRppContent div links{margin-bottom:20px;margin-top:10px;}
+.simsRppContainer .simsRppContent.active{pointer-events:all;}
+.simsRppContainer .simsRppContent.active div h1,.simsRppContainer .simsRppContent.active div span,.simsRppContainer .simsRppContent.active div links{animation:simsRppTextFadein .4s;opacity:1;}
+.simsRppContainer .simsRppContent.active img{animation:simsRppImgFadein .3s;}
+.simsRppContainer .simsRppContent.hidden div h1,.simsRppContainer .simsRppContent.hidden div span,.simsRppContainer .simsRppContent.hidden div links,.simsRppContainer .simsRppContent.hidden img{animation:simsRppFadeout .2s;opacity:0;}
+.simsRppContainer a{color:#1e9fff;position:relative;text-decoration:none;display:inline-block;margin-right:10px;}
+.simsRppContainer a::before{content:"";position:absolute;bottom:0;height:1px;width:100%;background:#1e9fff;left:0;transform:scaleX(0);transition:transform .1s;}
+.simsRppContainer a:hover::before{transform:none;}
+.lightText .simsRppContent,.lightText a{color:white;}
+.lightText a{font-weight:bold;}
+.lightText a::before{background:white;}
+.simsRppContainer a:active{opacity:.8;}
+.simsRppSwitchContainer{width:100%;max-width:700px;position:absolute;bottom:20px;left:0;right:0;margin:auto;}
+.simsRppSwitchContainer div{background:black;opacity:.3;transition:all .4s,background .2s;width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:10px;}
+.simsRppSwitchContainer div.active{opacity:1;transform:scale(1.2);}
+.lightText .simsRppSwitchContainer div{background:white;}
+@keyframes simsRppTextFadein{from{transform:translateY(10px);opacity:0;}to{transform:none;opacity:1;}}
+@keyframes simsRppImgFadein{from{transform:translateX(10px);opacity:0;}to{transform:none;opacity:1;}}
+@keyframes simsRppFadeout{from{transform:none;opacity:1;}to{transform:translateX(-10px);opacity:0;}}
+@media screen and (max-width: 780px){
+    .simsRppContainer .simsRppContent img{top:calc(50% - 180px);bottom:unset;left:0;right:0;}
+    .simsRppContainer .simsRppContent div{width:100%;text-align:center;top:calc(50% - 40px);}
+    .simsRppSwitchContainer{text-align:center;}
+    @keyframes simsRppImgFadein{from{transform:translateY(10px);opacity:0;}to{transform:none;opacity:1;}}
+}
