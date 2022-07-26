@@ -1,16 +1,15 @@
 function initSimsRpp(elem,conf){
-    console.log("SIMSRPP v1.0\nhttps://github.com/YanJi314/SimsRPP");
+    console.log("SIMSRPP v1.3\nhttps://github.com/YanJi314/SimsRPP");
     elem.innerHTML="";
     simsRppElem=elem;
     simsRppConf=conf;
     simsRppCurrent=-1;
-    simsRppAutoNext=true;
     simsRppDisableSwitch=false;
     simsRppContainer=document.createElement("div");
     simsRppContainer.classList.add("simsRppContainer");
-    simsRppElem.onmouseover=function(){clearInterval(simsRppInterval)};
-    simsRppElem.onmouseout=function(){simsRppInterval=setInterval(function(){if(simsRppAutoNext){simsRppNext()}},5000);};
-    simsRppElem.ontouchstart=function(){simsRppTouchLocation=event.touches[0].clientX;simsRppElem.ontouchmove=simsRppTouchmoveHandler;clearInterval(simsRppInterval)};
+    simsRppElem.onmouseover=function(){clearInterval(simsRppInterval);simsRppInterval=null;};
+    simsRppElem.onmouseout=function(){if(!window.simsRppInterval){simsRppInterval=setInterval(function(){simsRppNext()},5000);}};
+    simsRppElem.ontouchstart=function(){simsRppTouchLocation=event.touches[0].clientX;simsRppElem.ontouchmove=simsRppTouchmoveHandler;clearInterval(simsRppInterval);simsRppInterval=null;};
     elem.appendChild(simsRppContainer);
     simsRppSwitchContainer=document.createElement("div");
     simsRppSwitchContainer.classList.add("simsRppSwitchContainer");
@@ -28,7 +27,7 @@ function initSimsRpp(elem,conf){
         simsRppSwitchContainer.innerHTML+=`<div onclick="showSimsRpp(${index})" data-sims-rpp-id="${index}"></div>`
     });
     showSimsRpp(0);
-    simsRppInterval=setInterval(function(){if(simsRppAutoNext){simsRppNext()}},5000);
+    simsRppInterval=setInterval(function(){simsRppNext()},5000);
 }
 function simsRppIsdark(){
     if(document.body.classList.contains("dark")){return 1;}else{return 0;}
@@ -61,6 +60,6 @@ function simsRppPrev(){
     if(simsRppCurrent==0){showSimsRpp(simsRppConf.length-1);}else{showSimsRpp(simsRppCurrent-1);}
 }
 function simsRppTouchmoveHandler(){
-    if(event.touches[0].clientX-simsRppTouchLocation>50){simsRppPrev();simsRppElem.ontouchmove=function(){};simsRppInterval=setInterval(function(){if(simsRppAutoNext){simsRppNext()}},5000);}
-    if(event.touches[0].clientX-simsRppTouchLocation<-50){simsRppNext();simsRppElem.ontouchmove=function(){};simsRppInterval=setInterval(function(){if(simsRppAutoNext){simsRppNext()}},5000);}
+    if(event.touches[0].clientX-simsRppTouchLocation>50){simsRppPrev();simsRppElem.ontouchmove=function(){};simsRppInterval=setInterval(function(){simsRppNext()},5000);}
+    if(event.touches[0].clientX-simsRppTouchLocation<-50){simsRppNext();simsRppElem.ontouchmove=function(){};simsRppInterval=setInterval(function(){simsRppNext()},5000);}
 }
