@@ -5,6 +5,7 @@ function initSimsRpp(elem,conf){
     simsRppConf=conf;
     simsRppCurrent=-1;
     simsRppAutoNext=true;
+    simsRppDisableSwitch=false;
     simsRppContainer=document.createElement("div");
     simsRppContainer.classList.add("simsRppContainer");
     simsRppElem.onmouseover=function(){clearInterval(simsRppInterval)};
@@ -33,7 +34,8 @@ function simsRppIsdark(){
     if(document.body.classList.contains("dark")){return 1;}else{return 0;}
 }
 function showSimsRpp(rppid){
-    if(rppid!=simsRppCurrent){
+    if(rppid!=simsRppCurrent && !simsRppDisableSwitch){
+        simsRppDisableSwitch=true;
         simsRppCurrent=rppid;
         if(document.querySelector(".simsRppContent.active")){
             document.querySelector(".simsRppContent.active").classList.add("hidden");
@@ -44,6 +46,7 @@ function showSimsRpp(rppid){
         }
         document.querySelector(".simsRppSwitchContainer div[data-sims-rpp-id^='"+rppid+"']").classList.add("active");
         setTimeout(function(){
+            simsRppDisableSwitch=false;
             simsRppContainer.style.background=simsRppConf[rppid].background[simsRppIsdark()];
             if(!simsRppConf[rppid].darktext[simsRppIsdark()]){simsRppElem.classList.add("lightText")}else{simsRppElem.classList.remove("lightText")}
             document.querySelector(".simsRppContent[data-sims-rpp-id^='"+rppid+"']").classList.remove("hidden");
